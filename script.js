@@ -83,6 +83,21 @@ function isColliding(el1, el2) {
     );
 }
 
+// Function to display "YOU WIN" message and stop the game
+function displayWinMessage() {
+    if (document.querySelector('.win-message')) return; // Ensure the message shows only once
+
+    // Stop the game loop
+    clearInterval(gameInterval);
+    gameActive = false;
+
+    // Create "YOU WIN" message
+    const winMessage = document.createElement('div');
+    winMessage.className = 'win-message';
+    winMessage.textContent = 'YOU WIN';
+    document.getElementById('game-container').appendChild(winMessage);
+}
+
 // Update the game loop to check for collisions
 function checkCollisions() {
     const drops = document.querySelectorAll('.water-drop'); // All drops
@@ -98,6 +113,10 @@ function checkCollisions() {
                 scoreElement.textContent = currentScore - 100; // Decrease score by 100 for red drops
             } else {
                 scoreElement.textContent = currentScore + 10; // Increase score by 10 for blue drops
+            }
+
+            if (parseInt(scoreElement.textContent, 10) >= 100) {
+                displayWinMessage();
             }
         }
     });

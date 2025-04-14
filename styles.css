@@ -179,3 +179,16 @@ body {
     font-weight: bold;
     color: #333;
 }
+
+/* Styling for the "YOU WIN" message */
+.win-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    font-weight: bold;
+    color: #ffc907;
+    text-align: center;
+    z-index: 200;
+}
