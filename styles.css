@@ -60,7 +60,7 @@ body {
 
 #start-btn {
     padding: 8px 16px;
-    background-color: #4CAF50;
+    background-color: #77a8bb;
     color: white;
     border: none;
     border-radius: 4px;
@@ -69,7 +69,23 @@ body {
 }
 
 #start-btn:hover {
-    background-color: #45a049;
+    background-color: #6b9aad;
+}
+
+/* Styling for the reset button */
+#reset-btn {
+    padding: 8px 16px;
+    background-color: #ffc907;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px; /* Add spacing between reset and start buttons */
+}
+
+#reset-btn:hover {
+    background-color: #e6b806;
 }
 
 .score {
@@ -126,4 +142,40 @@ body {
     #game-container {
         height: 70vh;
     }
+}
+
+/* Updated styling for the water can inside the game container */
+.water-can-container {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.water-can {
+    width: 80px;
+    height: auto;
+}
+
+/* Styling for the top-left container */
+.top-left-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between image and text */
+    z-index: 100;
+}
+
+.top-left-can {
+    width: 40px;
+    height: auto;
+}
+
+.top-left-text {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
 }

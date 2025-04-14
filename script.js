@@ -51,3 +51,78 @@ function createDrop() {
         drop.remove();
     });
 }
+
+// Add event listeners for jug movement
+const gameContainer = document.getElementById('game-container');
+const jug = document.querySelector('.water-can-container');
+
+let jugPosition = 50; // Initial position in percentage
+const moveStep = 5; // Movement step in percentage
+
+function moveJug(event) {
+    if (event.key === 'ArrowLeft' || event.key === 'a') {
+        jugPosition = Math.max(0, jugPosition - moveStep); // Prevent moving out of bounds
+    } else if (event.key === 'ArrowRight' || event.key === 'd') {
+        jugPosition = Math.min(100, jugPosition + moveStep); // Prevent moving out of bounds
+    }
+    jug.style.left = `${jugPosition}%`;
+}
+
+document.addEventListener('keydown', moveJug);
+
+// Function to check collision between two elements
+function isColliding(el1, el2) {
+    const rect1 = el1.getBoundingClientRect();
+    const rect2 = el2.getBoundingClientRect();
+
+    return (
+        rect1.left < rect2.right &&
+        rect1.right > rect2.left &&
+        rect1.top < rect2.bottom &&
+        rect1.bottom > rect2.top
+    );
+}
+
+// Update the game loop to check for collisions
+function checkCollisions() {
+    const drops = document.querySelectorAll('.water-drop'); // All drops
+    const jug = document.querySelector('.water-can-container');
+
+    drops.forEach(drop => {
+        if (isColliding(jug, drop)) {
+            drop.remove(); // Remove the drop on collision
+            const scoreElement = document.getElementById('score');
+            let currentScore = parseInt(scoreElement.textContent, 10);
+
+            if (drop.classList.contains('bad-drop')) {
+                scoreElement.textContent = currentScore - 100; // Decrease score by 100 for red drops
+            } else {
+                scoreElement.textContent = currentScore + 10; // Increase score by 10 for blue drops
+            }
+        }
+    });
+}
+
+// Add collision checking to the game loop
+setInterval(checkCollisions, 50);
+
+// Reset the game state and score
+function resetGame() {
+    // Stop the game loop
+    clearInterval(gameInterval);
+    gameActive = false;
+
+    // Reset the score
+    const scoreElement = document.getElementById('score');
+    scoreElement.textContent = '0';
+
+    // Remove all water drops
+    const drops = document.querySelectorAll('.water-drop');
+    drops.forEach(drop => drop.remove());
+
+    // Re-enable the start button
+    document.getElementById('start-btn').disabled = false;
+}
+
+// Add event listener to the reset button
+document.getElementById('reset-btn').addEventListener('click', resetGame);
